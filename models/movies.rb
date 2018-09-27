@@ -1,4 +1,7 @@
 require_relative("../db/sql_runner")
+require_relative('actors.rb')
+require_relative('roles.rb')
+
 
 class Movie
 
@@ -10,6 +13,25 @@ def initialize(options)
   @title = options['title']
   @genre = options['genre']
 end
+
+  def actors()
+
+    sql = "SELECT actors.* FROM actors
+          INNER JOIN roles
+          ON actors.id = roles.id_actor
+          WHERE roles.id_movie = $1"
+
+    values = [@id]
+    result = SqlRunner.run(sql,values)
+    actors = result.map do |c|
+      Actor.new(c)
+    end
+
+    return actors
+
+  end
+
+
 
 def save()
 

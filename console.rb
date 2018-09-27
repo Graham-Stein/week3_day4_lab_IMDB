@@ -19,6 +19,11 @@ actor2 = Actor.new({
   'l_name' => 'Watson'
   })
 
+actor3 = Actor.new({
+  'f_name' => 'Samuel',
+  'l_name' => 'Jackson'
+  })
+
 actor1.save
 actor2.save
 
@@ -71,6 +76,11 @@ role4 = Roles.new({
     'id_movie' => movie4.id,
     'fee' => 500000
     })
+role5 = Roles.new({
+  'id_actor' => actor3.id,
+  'id_movie' => movie1.id,
+  'fee' => 600000
+  })
 
 role1.save
 role2.save

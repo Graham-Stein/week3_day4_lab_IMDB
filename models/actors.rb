@@ -1,5 +1,5 @@
 require_relative("../db/sql_runner")
-
+require_relative('movies.rb')
 
 class Actor
 
@@ -12,6 +12,25 @@ def initialize(options)
   @l_name = options['l_name']
 
 end
+
+  def movies()
+
+    sql = "SELECT movies.* FROM movies
+          INNER JOIN roles
+          ON movies.id = roles.id_movie
+          WHERE roles.id_actor = $1"
+
+    values = [@id]
+    result = SqlRunner.run(sql,values)
+      movie_objects = result.map do |c|
+        Movie.new(c)
+      end
+
+  return movie_objects
+
+  end
+
+
 
 def save()
 
@@ -51,7 +70,7 @@ sql = "UPDATE actors SET
 
 values = [@f_name, @l_name, @id]
 SqlRunner.run(sql,values)
- 
+
 
 end
 
